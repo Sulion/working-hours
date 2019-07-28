@@ -89,3 +89,52 @@ themselves among our clients, we could introduce the eigth day of the week: EVER
       }
 
 This way we can communicate the whole schedule 7 times more efficiently.
+
+I can think of another way to improve bandwidth of the message loop. Consider this:  
+
+      [ 
+         {
+           "timetable": [
+                          {
+                            "openAt": 32400,
+                            "for": 7200
+                          },
+                          {
+                            "openAt": 57600,
+                            "for": 25200
+                          }
+                       ],
+           "days": [
+                      MONDAY,
+                      TUESDAY,
+                      WEDNESDAY
+                   ]
+         },
+         {
+           "timetable": [],
+           "days": [ THURSDAY ] 
+                          
+         }
+      ]
+
+Namely, define some kind of day timetable and then list the days it's applicable to. Days on which the place is
+closed have empty timetable array. It's simple and space-efficient and we don't have to invent new weekdays.
+
+
+Now, let us improve the format for parsing speed.
+
+      { 
+         "MONDAY": [
+                      {
+                        "openAt": "9 AM",
+                        "closeAt": "11.30 AM"
+                      },
+                      {
+                        "openAt": "6 PM",
+                        "closeAt": "12.30 PM"
+                      }
+                   ]
+      }
+
+This format can be almost directly printed into the required result text, while still being parseable and 
+verifiable at need.
