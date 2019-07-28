@@ -18,8 +18,11 @@ class DefaultWorkingHoursTransformer : WorkingHoursTransformer {
         val timeFormatterWithoutMinutes = DateTimeFormatter.ofPattern("h a")
     }
 
-    override fun toHumanFriendlyFormat(input: List<Restaraunt>): List<Timetable> =
-            input.map { transformRestaurant(it) }
+    override fun toHumanFriendlyFormat(input: Restaraunt): String =
+            transformRestaurant(input).workingHours
+                    .map { it.value }
+                    .joinToString("\n") + "\n"
+
 
     private fun transformRestaurant(restaraunt: Restaraunt): Timetable =
             DayOfWeek.values()

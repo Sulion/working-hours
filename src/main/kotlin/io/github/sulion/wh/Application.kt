@@ -3,7 +3,7 @@ package io.github.sulion.wh
 import io.github.sulion.wh.api.WorkingHoursTransformer
 import io.github.sulion.wh.impl.DefaultWorkingHoursTransformer
 import io.github.sulion.wh.model.Restaraunt
-import io.github.sulion.wh.model.Timetable
+import io.github.sulion.wh.util.readValue
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -25,11 +25,10 @@ fun Application.main() {
             call.respondText("Use POST method to convert working hours data to human-readable text", ContentType.Text.Plain)
         }
         post("/") {
-            val request = call.receive<List<Restaraunt>>()
+            val request = readValue<Restaraunt>(call.receive<String>())
+
             call.respondText {
                 workingHoursTransformer.toHumanFriendlyFormat(request)
-                        .map { it.toString() }
-                        .reduce { acc, s -> acc + "\n" + s }
             }
         }
     }

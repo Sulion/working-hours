@@ -26,3 +26,7 @@ class DayOfWeekDeserializer : KeyDeserializer() {
 
 inline fun <reified T> readValue(source: InputStream): T =
         JsonConfiguration.jacksonMapper.readValue(source)
+
+
+inline fun <reified T> readValue(source: String): T =
+        JsonConfiguration.jacksonMapper.readValue(source)
