@@ -6,7 +6,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import io.github.sulion.wh.model.Opening
 import io.github.sulion.wh.model.OpeningType.close
 import io.github.sulion.wh.model.OpeningType.open
-import io.github.sulion.wh.model.Restaraunt
+import io.github.sulion.wh.model.RestaurantData
 import io.github.sulion.wh.util.DayOfWeekDeserializer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -31,7 +31,7 @@ internal class DefaultWorkingHoursTransformerTest {
 
     @Test
     fun toHumanFriendlyFormat() {
-        val restaraunt = jacksonMappter.readValue<Restaraunt>(this.javaClass.getResourceAsStream(ONLY_FRI_AND_SAT))
+        val restaraunt = jacksonMappter.readValue<RestaurantData>(this.javaClass.getResourceAsStream(ONLY_FRI_AND_SAT))
         val transformer = DefaultWorkingHoursTransformer()
         val timetables = transformer.toHumanFriendlyFormat(restaraunt)
                 .split("\n").filter { it.isNotBlank() }
@@ -44,7 +44,7 @@ internal class DefaultWorkingHoursTransformerTest {
 
     @Test
     fun testWithMinutesInTimeTable() {
-        val restaraunt = jacksonMappter.readValue<Restaraunt>(this.javaClass.getResourceAsStream(FRI_SAT_UNEVEN_HOURS))
+        val restaraunt = jacksonMappter.readValue<RestaurantData>(this.javaClass.getResourceAsStream(FRI_SAT_UNEVEN_HOURS))
         val transformer = DefaultWorkingHoursTransformer()
         val timetables = transformer.toHumanFriendlyFormat(restaraunt)
                 .split("\n").filter { it.isNotBlank() }
@@ -71,7 +71,7 @@ internal class DefaultWorkingHoursTransformerTest {
 
     @Test
     fun testFullExample() {
-        val restaraunt = jacksonMappter.readValue<Restaraunt>(this.javaClass.getResourceAsStream(FULL_WEEK_EXAMPLE))
+        val restaraunt = jacksonMappter.readValue<RestaurantData>(this.javaClass.getResourceAsStream(FULL_WEEK_EXAMPLE))
         val transformer = DefaultWorkingHoursTransformer()
         val timetables = transformer.toHumanFriendlyFormat(restaraunt).split("\n").filter { it.isNotBlank() }
         assertEquals(7, timetables.size)

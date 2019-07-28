@@ -6,7 +6,7 @@ import io.github.sulion.wh.api.DataFormatException
 import io.github.sulion.wh.api.WorkingHoursTransformer
 import io.github.sulion.wh.impl.DefaultWorkingHoursTransformer
 import io.github.sulion.wh.impl.LaxRestaurantValidator
-import io.github.sulion.wh.model.Restaraunt
+import io.github.sulion.wh.model.RestaurantData
 import io.github.sulion.wh.util.DayOfWeekDeserializer
 import io.ktor.application.Application
 import io.ktor.application.call
@@ -57,7 +57,7 @@ fun Application.main() {
             call.respondText("Use POST method to convert working hours data to human-readable text", ContentType.Text.Plain)
         }
         post("/") {
-            val request = call.receive<Restaraunt>()
+            val request = call.receive<RestaurantData>()
             validator.validate(request)
             call.respondText { workingHoursTransformer.toHumanFriendlyFormat(request) }
         }

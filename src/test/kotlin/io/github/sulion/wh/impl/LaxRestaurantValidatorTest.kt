@@ -4,7 +4,7 @@ import io.github.sulion.wh.api.DataFormatException
 import io.github.sulion.wh.model.Opening
 import io.github.sulion.wh.model.OpeningType.close
 import io.github.sulion.wh.model.OpeningType.open
-import io.github.sulion.wh.model.Restaraunt
+import io.github.sulion.wh.model.RestaurantData
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.time.DayOfWeek.MONDAY
@@ -19,7 +19,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(open, 39600),
                 Opening(close, 82800)
         )
-        val restaurant = Restaraunt(mutableMapOf(MONDAY to monday))
+        val restaurant = RestaurantData(mutableMapOf(MONDAY to monday))
         val validator = LaxRestaurantValidator()
         assertThrows<DataFormatException.OverlappingOpenings> {
             validator.validate(restaurant)
@@ -34,7 +34,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(close, 39600),
                 Opening(close, 82800)
         )
-        val restaurant = Restaraunt(mutableMapOf(MONDAY to monday))
+        val restaurant = RestaurantData(mutableMapOf(MONDAY to monday))
         val validator = LaxRestaurantValidator()
         assertThrows<DataFormatException.UnexpectedBoundary> {
             validator.validate(restaurant)
@@ -45,7 +45,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(close, 39600),
                 Opening(close, 82800)
         )
-        val restaurantTwo = Restaraunt(mutableMapOf(TUESDAY to tuesday))
+        val restaurantTwo = RestaurantData(mutableMapOf(TUESDAY to tuesday))
 
         assertThrows<DataFormatException.UnexpectedBoundary> {
             validator.validate(restaurantTwo)
@@ -61,7 +61,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(open, 57600),
                 Opening(close, 82800)
         )
-        val restaurant = Restaraunt(mutableMapOf(MONDAY to monday))
+        val restaurant = RestaurantData(mutableMapOf(MONDAY to monday))
         val validator = LaxRestaurantValidator()
         assertThrows<DataFormatException.InconsistentWeek> {
             validator.validate(restaurant)
@@ -75,7 +75,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(close, 39600),
                 Opening(open, 57600)
         )
-        val restaurant = Restaraunt(mutableMapOf(MONDAY to monday))
+        val restaurant = RestaurantData(mutableMapOf(MONDAY to monday))
         val validator = LaxRestaurantValidator()
         assertThrows<DataFormatException.InconsistentWeek> {
             validator.validate(restaurant)
@@ -89,7 +89,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(close, 39600),
                 Opening(open, 57600)
         )
-        val restaurant = Restaraunt(mutableMapOf(MONDAY to monday, TUESDAY to listOf()))
+        val restaurant = RestaurantData(mutableMapOf(MONDAY to monday, TUESDAY to listOf()))
         val validator = LaxRestaurantValidator()
         assertThrows<DataFormatException.InconsistentWeek> {
             validator.validate(restaurant)
@@ -109,7 +109,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(close, 39600),
                 Opening(open, 57600)
         )
-        val restaurant = Restaraunt(mutableMapOf(MONDAY to monday, TUESDAY to tuesday))
+        val restaurant = RestaurantData(mutableMapOf(MONDAY to monday, TUESDAY to tuesday))
         val validator = LaxRestaurantValidator()
         assertThrows<DataFormatException.InconsistentWeek> {
             validator.validate(restaurant)
@@ -130,7 +130,7 @@ internal class LaxRestaurantValidatorTest {
                 Opening(close, 39600),
                 Opening(open, 57600)
         )
-        val restaurant = Restaraunt(mutableMapOf(MONDAY to monday, TUESDAY to tuesday))
+        val restaurant = RestaurantData(mutableMapOf(MONDAY to monday, TUESDAY to tuesday))
         val validator = LaxRestaurantValidator()
         assertThrows<DataFormatException.InconsistentWeek> {
             validator.validate(restaurant)

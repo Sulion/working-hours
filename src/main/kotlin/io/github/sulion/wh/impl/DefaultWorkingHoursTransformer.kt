@@ -4,7 +4,7 @@ import io.github.sulion.wh.api.WorkingHoursTransformer
 import io.github.sulion.wh.model.Opening
 import io.github.sulion.wh.model.OpeningType.close
 import io.github.sulion.wh.model.OpeningType.open
-import io.github.sulion.wh.model.Restaraunt
+import io.github.sulion.wh.model.RestaurantData
 import io.github.sulion.wh.model.Timetable
 import java.time.DayOfWeek
 import java.time.LocalTime
@@ -18,19 +18,19 @@ class DefaultWorkingHoursTransformer : WorkingHoursTransformer {
         val timeFormatterWithoutMinutes: DateTimeFormatter = DateTimeFormatter.ofPattern("h a")
     }
 
-    override fun toHumanFriendlyFormat(input: Restaraunt): String =
+    override fun toHumanFriendlyFormat(input: RestaurantData): String =
             transformRestaurant(input).workingHours
                     .map { it.value }
                     .joinToString("\n") + "\n"
 
 
-    private fun transformRestaurant(restaraunt: Restaraunt): Timetable =
+    private fun transformRestaurant(restaurantData: RestaurantData): Timetable =
             DayOfWeek.values()
                     .associate {
                         it to makeDailyString(
                                 it,
-                                restaraunt.workingHours[it],
-                                restaraunt.workingHours[it.plus(1)]
+                                restaurantData.workingHours[it],
+                                restaurantData.workingHours[it.plus(1)]
                         )
                     }
                     .let { Timetable(it) }

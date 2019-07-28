@@ -12,7 +12,7 @@ data class Opening(
         val value: Long
 )
 
-data class Restaraunt(@JsonIgnore val workingHours: MutableMap<DayOfWeek, List<Opening>>) {
+data class RestaurantData(@JsonIgnore val workingHours: MutableMap<DayOfWeek, List<Opening>>) {
     @JsonAnyGetter
     fun readWorkingHours(): Map<DayOfWeek, List<Opening>> =
             workingHours

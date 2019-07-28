@@ -1,11 +1,11 @@
 package io.github.sulion.wh.api
 
-import io.github.sulion.wh.model.Restaraunt
+import io.github.sulion.wh.model.RestaurantData
 
 interface WorkingHoursTransformer {
-    fun toHumanFriendlyFormat(input: Restaraunt): String
+    fun toHumanFriendlyFormat(input: RestaurantData): String
 }
 
 interface RestaurantValidator {
-    fun validate(restaurant: Restaraunt)
+    fun validate(restaurant: RestaurantData)
 }

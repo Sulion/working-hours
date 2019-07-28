@@ -5,7 +5,7 @@ import io.github.sulion.wh.api.RestaurantValidator
 import io.github.sulion.wh.model.Opening
 import io.github.sulion.wh.model.OpeningType.close
 import io.github.sulion.wh.model.OpeningType.open
-import io.github.sulion.wh.model.Restaraunt
+import io.github.sulion.wh.model.RestaurantData
 import java.time.DayOfWeek
 
 /**
@@ -16,7 +16,7 @@ import java.time.DayOfWeek
  * - each days opens by open, except when the previous day is finished by open
  */
 class LaxRestaurantValidator : RestaurantValidator {
-    override fun validate(restaurant: Restaraunt) =
+    override fun validate(restaurant: RestaurantData) =
             restaurant.workingHours.forEach {
                 if (it.value.isNotEmpty()) {
                     checkDayBoundaries(
