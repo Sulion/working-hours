@@ -14,8 +14,8 @@ import java.util.*
 
 class DefaultWorkingHoursTransformer : WorkingHoursTransformer {
     companion object {
-        val timeFormatterWithMinutes = DateTimeFormatter.ofPattern("h.mm a")
-        val timeFormatterWithoutMinutes = DateTimeFormatter.ofPattern("h a")
+        val timeFormatterWithMinutes: DateTimeFormatter = DateTimeFormatter.ofPattern("h.mm a")
+        val timeFormatterWithoutMinutes: DateTimeFormatter = DateTimeFormatter.ofPattern("h a")
     }
 
     override fun toHumanFriendlyFormat(input: Restaraunt): String =
@@ -30,7 +30,7 @@ class DefaultWorkingHoursTransformer : WorkingHoursTransformer {
                         it to makeDailyString(
                                 it,
                                 restaraunt.workingHours[it],
-                                restaraunt.workingHours[it.tomorrow()]
+                                restaraunt.workingHours[it.plus(1)]
                         )
                     }
                     .let { Timetable(it) }
@@ -50,11 +50,6 @@ class DefaultWorkingHoursTransformer : WorkingHoursTransformer {
             openings.windowed(2, 2)
                     .map { "${it.first().to12hDate()} - ${it.last().to12hDate()}" }
                     .joinToString(", ")
-
-    private fun DayOfWeek.tomorrow() = when (this) {
-        DayOfWeek.SUNDAY -> DayOfWeek.MONDAY
-        else -> DayOfWeek.of(value + 1)
-    }
 
     private fun Opening.to12hDate() = LocalTime.ofSecondOfDay(value)
             .let {

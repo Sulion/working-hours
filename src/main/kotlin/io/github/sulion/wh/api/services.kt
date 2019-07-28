@@ -7,5 +7,5 @@ interface WorkingHoursTransformer {
 }
 
 interface RestaurantValidator {
-    fun validate(restaraunt: Restaraunt)
+    fun validate(restaurant: Restaraunt)
 }
