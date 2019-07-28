@@ -1,12 +1,16 @@
 package io.github.sulion.wh.impl
 
+import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import io.github.sulion.wh.model.Opening
 import io.github.sulion.wh.model.OpeningType.close
 import io.github.sulion.wh.model.OpeningType.open
 import io.github.sulion.wh.model.Restaraunt
-import io.github.sulion.wh.util.readValue
+import io.github.sulion.wh.util.DayOfWeekDeserializer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.time.DayOfWeek
 import java.time.DayOfWeek.MONDAY
 
 const val ONLY_FRI_AND_SAT: String = "only-fri-and-sat.json"
@@ -14,10 +18,20 @@ const val FRI_SAT_UNEVEN_HOURS: String = "fri-and-sat-with-uneven-hours.json"
 const val FULL_WEEK_EXAMPLE = "full-week-from-task.json"
 
 internal class DefaultWorkingHoursTransformerTest {
+    companion object {
+        val jacksonMappter = jacksonObjectMapper()
+                .apply {
+                    registerModule(
+                            SimpleModule().apply {
+                                addKeyDeserializer(DayOfWeek::class.java, DayOfWeekDeserializer())
+                            }
+                    )
+                }
+    }
 
     @Test
     fun toHumanFriendlyFormat() {
-        val restaraunt = readValue<Restaraunt>(this.javaClass.getResourceAsStream(ONLY_FRI_AND_SAT))
+        val restaraunt = jacksonMappter.readValue<Restaraunt>(this.javaClass.getResourceAsStream(ONLY_FRI_AND_SAT))
         val transformer = DefaultWorkingHoursTransformer()
         val timetables = transformer.toHumanFriendlyFormat(restaraunt)
                 .split("\n").filter { it.isNotBlank() }
@@ -30,7 +44,7 @@ internal class DefaultWorkingHoursTransformerTest {
 
     @Test
     fun testWithMinutesInTimeTable() {
-        val restaraunt = readValue<Restaraunt>(this.javaClass.getResourceAsStream(FRI_SAT_UNEVEN_HOURS))
+        val restaraunt = jacksonMappter.readValue<Restaraunt>(this.javaClass.getResourceAsStream(FRI_SAT_UNEVEN_HOURS))
         val transformer = DefaultWorkingHoursTransformer()
         val timetables = transformer.toHumanFriendlyFormat(restaraunt)
                 .split("\n").filter { it.isNotBlank() }
@@ -57,7 +71,7 @@ internal class DefaultWorkingHoursTransformerTest {
 
     @Test
     fun testFullExample() {
-        val restaraunt = readValue<Restaraunt>(this.javaClass.getResourceAsStream(FULL_WEEK_EXAMPLE))
+        val restaraunt = jacksonMappter.readValue<Restaraunt>(this.javaClass.getResourceAsStream(FULL_WEEK_EXAMPLE))
         val transformer = DefaultWorkingHoursTransformer()
         val timetables = transformer.toHumanFriendlyFormat(restaraunt).split("\n").filter { it.isNotBlank() }
         assertEquals(7, timetables.size)

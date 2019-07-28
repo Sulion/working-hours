@@ -26,6 +26,7 @@ dependencies {
     compile(kotlin("stdlib"))
     compile(ktor())
     compile(ktor("server-netty"))
+    implementation(ktor("jackson"))
     compile("ch.qos.logback:logback-classic:$logbackVersion")
     compile( "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     compile( "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
@@ -35,6 +36,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.5.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.1")
+    testImplementation("io.rest-assured:rest-assured:4.0.0")
 }
 
 tasks.withType<KotlinCompile> {
