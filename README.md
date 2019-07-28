@@ -1,30 +1,34 @@
 # Working Hours
 
 A Ktor-based web-service which transforms rather specific restaraunt working hours information into 
-the text you actually could put onto your web-site or even print
+a text you actually could put onto your web-site or even print
 
 ## Build
 
-The project is Gradle-based and pure Kotlin, so there is nothing special about the build.
+This project targets JDK 12.
+The project is Gradle-based and pure Kotlin, so there is nothing special about the build: 
+
+    ./gradlew build
 
 ## Run
 
-The build produces a fatjar which can be run directly: 
+The build produces a fatjar which can be run directly:
+
+    java -jar build/libs/working-hours-fat-1.0-SNAPSHOT.jar  
+    
+    
+After that try to send `POST` to `http://localhost:8080` with JSONs described in the task.
 
 ## Format improvement 
 
 To improve a data format one needs to know lots of conditions which cannot be known inside test assignment. 
 
-How much data in this format we already have?
-
-Who are the producers of this data and how likely they are to change? (If it is Google or government, 
+* How much data in this format we already have?
+* Who are the producers of this data and how likely they are to change? (If it is Google or government, 
 there is little chance they'll listen) 
-
-Who are we going to improve this data for - for producers or for consumers?
-
-What are statistical properties of the data? Is there some standard patterns we could cover with enumerations?
-
-What is more computationally harder - produce and transfer data or process it?
+* Who are we going to improve this data for - for producers or for consumers?
+* What are statistical properties of the data? Is there some standard patterns we could cover with enumerations?
+* What is more computationally harder - produce and transfer data or process it?
 
 All those questions I would have asked in a real project. However, this one is a test assignment.
 
