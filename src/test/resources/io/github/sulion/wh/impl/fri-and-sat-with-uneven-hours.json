@@ -1,0 +1,30 @@
+{
+  "friday": [
+    {
+      "type": "open",
+      "value": 63000
+    }
+  ],
+  "saturday": [
+    {
+      "type": "close",
+      "value": 5400
+    },
+    {
+      "type": "open",
+      "value": 32400
+    },
+    {
+      "type": "close",
+      "value": 39600
+    },
+    {
+      "type": "open",
+      "value": 57600
+    },
+    {
+      "type": "close",
+      "value": 81000
+    }
+  ]
+}
