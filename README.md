@@ -50,9 +50,9 @@ I will list things that are not right about this format from the point of view o
 * Making `open` and `close` events two objects makes little sense to consumer, as you can't close anything without it opening first.
 * Too verbose. To list a single period one needs at least 60-65 bytes.
 * Too prone to corruption.
-- It's too easy to miss one "open" or one "close" section
-- During processing the collection of open/close sections it _must_ be ordered, otherwise you lose info
-- If opening periods overlap (clear error in data), it's hard to spot
+  - It's too easy to miss one "open" or one "close" section
+  - During processing the collection of open/close sections it _must_ be ordered, otherwise you lose info
+  - If opening periods overlap (clear error in data), it's hard to spot
 * It's necessary to look ahead because of late closings
 * It's hard to extend - what if we want to communicate some exceptions - like, 
 "Open each day 8 to 5, except second Wednesday of the month"
