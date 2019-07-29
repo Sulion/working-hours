@@ -50,9 +50,9 @@ I will list things that are not right about this format from the point of view o
 * Making `open` and `close` events two objects makes little sense to consumer, as you can't close anything without it opening first.
 * Too verbose. To list a single period one needs at least 60-65 bytes.
 * Too prone to corruption.
-** It's too easy to miss one "open" or one "close" section
-** During processing the collection of open/close sections it _must_ be ordered, otherwise you lose info
-** If opening periods overlap (clear error in data), it's hard to spot
+- It's too easy to miss one "open" or one "close" section
+- During processing the collection of open/close sections it _must_ be ordered, otherwise you lose info
+- If opening periods overlap (clear error in data), it's hard to spot
 * It's necessary to look ahead because of late closings
 * It's hard to extend - what if we want to communicate some exceptions - like, 
 "Open each day 8 to 5, except second Wednesday of the month"
@@ -77,11 +77,11 @@ If we are changing as little as possible, I would suggest the following format:
     
 This format
 
-- Is three times more economical - one section with 2 fields bears the same information as 2 sections with 
+* Is three times more economical - one section with 2 fields bears the same information as 2 sections with 
 3 fields each in old format
-- Less corruptible: if periods overlap and the order is lost, you can restore order sorting by `openAt` and 
+* Less corruptible: if periods overlap and the order is lost, you can restore order sorting by `openAt` and 
 checking if each next `openAt` later than current `openAt + for`
-- No need for "next day" magic: nobody cares if you close after midnight, just add whatever hours to 
+* No need for "next day" magic: nobody cares if you close after midnight, just add whatever hours to 
 your opening date
 
 ### Significant changes
