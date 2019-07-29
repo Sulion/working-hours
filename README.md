@@ -116,13 +116,13 @@ Let's change the format further. Consider this:
 Namely, define some kind of day timetable and then list the days it's applicable to. Days on which the place is
 closed have empty timetable array. It's simple and space-efficient and we don't have to invent new weekdays.
 
-### Huge changges
+### Huge changes
 
 But then there are some radical suggestion
 
 If we know that there is no restaurant which opens at odd minutes of the hour - at 8.15AM, say, or closes 
 at 12.05PM, if we know that they all open/close at N o'clock or at half past N, then we can represent each 
-day of the week as a 48-bit bitmap. Each bit is set, if the restaurant open at this half-hour, and unset if 
+day of the week as a 48-bit bitmap. Each bit is set, if the restaurant is open at this half-hour, and unset if 
 closed. It's just 6 bytes per day - neat, right? Put the whole week in this array - we don't need to 
 communicate names of days of the week, they are the same everywhere. 
 
